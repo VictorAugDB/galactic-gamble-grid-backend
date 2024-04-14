@@ -16,6 +16,7 @@ type SortBetUseCaseResponse = {
     id: string
     value: number
   }>
+  sortedNumbers: number[]
 }
 
 export class SortBetUseCase {
@@ -77,6 +78,6 @@ export class SortBetUseCase {
 
     await this.betsRepository.create(bet, transactions)
 
-    return { winningTickets }
+    return { winningTickets, sortedNumbers }
   }
 }

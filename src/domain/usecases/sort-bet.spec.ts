@@ -80,6 +80,7 @@ describe('Sort Bet', () => {
           value: BETS_REWARDS[15],
         },
       ],
+      sortedNumbers,
     })
   })
 
@@ -137,6 +138,7 @@ describe('Sort Bet', () => {
             wt.numbers.reduce((acc, curr) => (curr === 1 ? acc + 1 : acc), 0)
           ],
       })),
+      sortedNumbers,
     })
   })
 

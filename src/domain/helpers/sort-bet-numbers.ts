@@ -10,8 +10,6 @@ export function sortBetNumbers() {
 
   let numbers = Array.from({ length: 25 }, (_, i) => i + 1)
 
-  console.log({ numbers })
-
   numbers = shuffleArray(numbers)
 
   return numbers.slice(0, 15)
