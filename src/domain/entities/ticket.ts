@@ -6,7 +6,7 @@ export interface TicketProps {
   userId: UniqueEntityID
   betId?: string
   numbers: number[]
-  active: boolean
+  result: 'win' | 'lose' | null
   createdAt: Date
 }
 
@@ -23,8 +23,8 @@ export class Ticket extends Entity<TicketProps> {
     return this.props.numbers
   }
 
-  get active() {
-    return this.props.active
+  get result() {
+    return this.props.result
   }
 
   get createdAt() {
@@ -32,12 +32,13 @@ export class Ticket extends Entity<TicketProps> {
   }
 
   static create(
-    props: Optional<TicketProps, 'createdAt'>,
+    props: Optional<TicketProps, 'createdAt' | 'result'>,
     id?: UniqueEntityID,
   ) {
     return new Ticket(
       {
         ...props,
+        result: props.result ?? null,
         createdAt: props.createdAt ?? new Date(),
       },
       id,

@@ -31,7 +31,6 @@ export class BuyTicketUseCase {
     }
 
     const ticket = Ticket.create({
-      active: true,
       numbers,
       userId: new UniqueEntityID(userId),
     })

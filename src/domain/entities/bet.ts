@@ -7,7 +7,6 @@ export interface BetProps {
   userId: UniqueEntityID
   tickets: Ticket[]
   sortedNumbers: number[]
-  result: 'win' | 'lose'
   createdAt: Date
 }
 
@@ -22,10 +21,6 @@ export class Bet extends Entity<BetProps> {
 
   get sortedNumbers() {
     return this.props.sortedNumbers
-  }
-
-  get result() {
-    return this.props.result
   }
 
   get createdAt() {

@@ -56,7 +56,7 @@ describe('Buy Ticket', () => {
       expect.objectContaining({
         userId: user.id,
         numbers,
-        active: true,
+        result: null,
       }),
     )
     expect(inMemoryTransactionsRepository.items[1]).toBeInstanceOf(

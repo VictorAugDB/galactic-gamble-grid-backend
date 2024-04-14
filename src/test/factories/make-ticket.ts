@@ -31,7 +31,6 @@ export function makeTicket(
 ) {
   const ticket = Ticket.create(
     {
-      active: true,
       numbers: makeTicketNumbers(),
       userId: override.userId ?? new UniqueEntityID(),
       ...override,
