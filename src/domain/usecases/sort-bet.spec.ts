@@ -12,7 +12,7 @@ import { BETS_REWARDS } from '@/test/config/bets-rewards'
 
 let inMemoryUsersRepository: InMemoryUsersRepository
 let inMemoryTransactionsRepository: InMemoryTransactionsRepository
-let inMememoryBetsRepository: InMemoryBetsRepository
+let inMemoryBetsRepository: InMemoryBetsRepository
 let inMemoryTicketsRepository: InMemoryTicketsRepository
 let sut: SortBetUseCase
 
@@ -29,13 +29,13 @@ describe('Sort Bet', () => {
     inMemoryTransactionsRepository = new InMemoryTransactionsRepository(
       inMemoryTicketsRepository,
     )
-    inMememoryBetsRepository = new InMemoryBetsRepository(
+    inMemoryBetsRepository = new InMemoryBetsRepository(
       inMemoryTicketsRepository,
       inMemoryTransactionsRepository,
     )
 
     sut = new SortBetUseCase(
-      inMememoryBetsRepository,
+      inMemoryBetsRepository,
       inMemoryTicketsRepository,
       new InMemoryBetsRewardsRepository(),
     )
@@ -67,7 +67,7 @@ describe('Sort Bet', () => {
         value: BETS_REWARDS[15],
       }),
     )
-    expect(inMememoryBetsRepository.items[0]).toEqual(
+    expect(inMemoryBetsRepository.items[0]).toEqual(
       expect.objectContaining({
         userId: user.id,
         sortedNumbers,

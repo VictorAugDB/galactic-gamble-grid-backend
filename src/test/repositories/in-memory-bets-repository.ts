@@ -18,6 +18,12 @@ export class InMemoryBetsRepository implements BetsRepository {
     )
   }
 
+  findManyByUserId(userId: string): Promise<Bet[]> {
+    return Promise.resolve(
+      this.items.filter((item) => item.userId.toString() === userId),
+    )
+  }
+
   async create(bet: Bet, transactions: BetRewardTransaction[]): Promise<void> {
     await Promise.all(
       bet.tickets.map((ticket) => this.ticketsRepository.save(ticket)),
