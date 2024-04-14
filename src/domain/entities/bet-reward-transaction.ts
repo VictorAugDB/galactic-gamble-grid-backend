@@ -1,30 +1,26 @@
 import { Entity } from '@/core/entities/entity'
 import { Optional } from '@/core/entities/types/optional'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { Bet } from './bet'
 
-export interface TicketProps {
+export interface BetRewardTransactionProps {
   userId: UniqueEntityID
-  betId?: string
-  numbers: number[]
-  active: boolean
+  bet: Bet
+  value: number
   createdAt: Date
 }
 
-export class Ticket extends Entity<TicketProps> {
+export class BetRewardTransaction extends Entity<BetRewardTransactionProps> {
   get userId() {
     return this.props.userId
   }
 
-  get betId() {
-    return this.props.betId
+  get bet() {
+    return this.props.bet
   }
 
-  get numbers() {
-    return this.props.numbers
-  }
-
-  get active() {
-    return this.props.active
+  get value() {
+    return this.props.value
   }
 
   get createdAt() {
@@ -32,10 +28,10 @@ export class Ticket extends Entity<TicketProps> {
   }
 
   static create(
-    props: Optional<TicketProps, 'createdAt'>,
+    props: Optional<BetRewardTransactionProps, 'createdAt'>,
     id?: UniqueEntityID,
   ) {
-    return new Ticket(
+    return new BetRewardTransaction(
       {
         ...props,
         createdAt: props.createdAt ?? new Date(),

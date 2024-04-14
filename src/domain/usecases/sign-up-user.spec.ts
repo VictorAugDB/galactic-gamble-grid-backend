@@ -2,8 +2,8 @@ import { SignUpUserUseCase } from './sign-up-user'
 import { faker } from '@faker-js/faker'
 import { InMemoryUsersRepository } from '@/test/repositories/in-memory-users-repository'
 import { UserAlreadyExistsError } from './errors/user-already-exists'
-import { FakeHasher } from '@/test/repositories/cryptography/fake-hasher'
-import { makeUser } from '@/test/repositories/factories/make-user'
+import { FakeHasher } from '@/test/cryptography/fake-hasher'
+import { makeUser } from '@/test/factories/make-user'
 
 let inMemoryUsersRepository: InMemoryUsersRepository
 let sut: SignUpUserUseCase

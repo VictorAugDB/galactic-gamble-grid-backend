@@ -1,9 +1,9 @@
 import { InMemoryUsersRepository } from '@/test/repositories/in-memory-users-repository'
-import { FakeHasher } from '@/test/repositories/cryptography/fake-hasher'
+import { FakeHasher } from '@/test/cryptography/fake-hasher'
 import { AuthenticateUserUseCase } from './authenticate-user'
-import { FakeEncrypter } from '@/test/repositories/cryptography/fake-encrypter'
+import { FakeEncrypter } from '@/test/cryptography/fake-encrypter'
 import { faker } from '@faker-js/faker'
-import { makeUser } from '@/test/repositories/factories/make-user'
+import { makeUser } from '@/test/factories/make-user'
 import { WrongCredentialsError } from './errors/wrong-credentials-error'
 
 let fakeHasher: FakeHasher

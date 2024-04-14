@@ -1,9 +1,11 @@
 import { Entity } from '@/core/entities/entity'
 import { Optional } from '@/core/entities/types/optional'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { Ticket } from './ticket'
 
 export interface BetProps {
   userId: UniqueEntityID
+  tickets: Ticket[]
   sortedNumbers: number[]
   result: 'win' | 'lose'
   createdAt: Date
@@ -12,6 +14,10 @@ export interface BetProps {
 export class Bet extends Entity<BetProps> {
   get userId() {
     return this.props.userId
+  }
+
+  get tickets() {
+    return this.props.tickets
   }
 
   get sortedNumbers() {

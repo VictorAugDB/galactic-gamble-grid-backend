@@ -1,30 +1,26 @@
 import { Entity } from '@/core/entities/entity'
 import { Optional } from '@/core/entities/types/optional'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { Ticket } from './ticket'
 
-export interface TransactionProps {
+export interface BuyTicketTransactionProps {
   userId: UniqueEntityID
-  referrerId: UniqueEntityID
+  ticket: Ticket
   value: number
-  type: 'buy-ticket' | 'reward' | 'add-money'
   createdAt: Date
 }
 
-export class Transaction extends Entity<TransactionProps> {
+export class BuyTicketTransaction extends Entity<BuyTicketTransactionProps> {
   get userId() {
     return this.props.userId
   }
 
-  get referrerId() {
-    return this.props.referrerId
+  get ticket() {
+    return this.props.ticket
   }
 
   get value() {
     return this.props.value
-  }
-
-  get type() {
-    return this.props.type
   }
 
   get createdAt() {
@@ -32,10 +28,10 @@ export class Transaction extends Entity<TransactionProps> {
   }
 
   static create(
-    props: Optional<TransactionProps, 'createdAt'>,
+    props: Optional<BuyTicketTransactionProps, 'createdAt'>,
     id?: UniqueEntityID,
   ) {
-    return new Transaction(
+    return new BuyTicketTransaction(
       {
         ...props,
         createdAt: props.createdAt ?? new Date(),
