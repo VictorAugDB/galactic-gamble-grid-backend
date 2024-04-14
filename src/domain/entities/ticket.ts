@@ -8,6 +8,7 @@ export interface TicketProps {
   numbers: number[]
   result: 'win' | 'lose' | null
   createdAt: Date
+  updatedAt: Date
 }
 
 export class Ticket extends Entity<TicketProps> {
@@ -27,12 +28,21 @@ export class Ticket extends Entity<TicketProps> {
     return this.props.result
   }
 
+  set result(result: TicketProps['result']) {
+    this.props.result = result
+    this.touch()
+  }
+
   get createdAt() {
     return this.props.createdAt
   }
 
+  private touch() {
+    this.props.updatedAt = new Date()
+  }
+
   static create(
-    props: Optional<TicketProps, 'createdAt' | 'result'>,
+    props: Optional<TicketProps, 'createdAt' | 'updatedAt' | 'result'>,
     id?: UniqueEntityID,
   ) {
     return new Ticket(
@@ -40,6 +50,7 @@ export class Ticket extends Entity<TicketProps> {
         ...props,
         result: props.result ?? null,
         createdAt: props.createdAt ?? new Date(),
+        updatedAt: props.updatedAt ?? new Date(),
       },
       id,
     )

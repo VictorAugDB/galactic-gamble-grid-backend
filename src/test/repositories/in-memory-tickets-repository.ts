@@ -10,8 +10,24 @@ export class InMemoryTicketsRepository implements TicketsRepository {
     )
   }
 
+  findActiveTicketsByUserId(userId: string): Promise<Ticket[]> {
+    return Promise.resolve(
+      this.items.filter(
+        (item) => item.userId.toString() === userId && item.result === null,
+      ),
+    )
+  }
+
   create(ticket: Ticket): Promise<void> {
     this.items.push(ticket)
+
+    return Promise.resolve()
+  }
+
+  save(ticket: Ticket): Promise<void> {
+    const idx = this.items.findIndex((item) => item.id.equals(ticket.id))
+
+    this.items[idx] = ticket
 
     return Promise.resolve()
   }

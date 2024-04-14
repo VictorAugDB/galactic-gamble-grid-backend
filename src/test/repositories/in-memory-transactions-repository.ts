@@ -21,7 +21,6 @@ export class InMemoryTransactionsRepository implements TransactionsRepository {
   }
 
   getUserBalance(userId: string): Promise<number> {
-    console.log(this.items)
     const userBalance = this.items.reduce((acc, curr) => {
       if (curr.userId.toString() === userId) {
         switch (curr.constructor) {

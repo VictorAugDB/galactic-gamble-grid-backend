@@ -1,10 +1,10 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Ticket } from '../entities/ticket'
 import { countTicketNumbers } from '../helpers/count-ticket-numbers'
-import { TicketsCostsRepository } from '../repositories/tickets-costs-repository'
 import { TransactionsRepository } from '../repositories/transactions-repository'
 import { InsufficientBalanceError } from './errors/insufficient-balance'
 import { BuyTicketTransaction } from '../entities/buy-ticket-transaction'
+import { TicketsCostsRepository } from '../repositories/tickets-costs-repository'
 
 type BuyTicketUseCaseRequest = {
   userId: string
@@ -22,8 +22,6 @@ export class BuyTicketUseCase {
     const ticketValue = await this.ticketsCostsRepository.findByKey(
       countTicketNumbers(numbers),
     )
-
-    console.log(userBalance, ticketValue)
 
     const userHasBalanceToBuyTheTicket = userBalance > ticketValue
     if (!userHasBalanceToBuyTheTicket) {

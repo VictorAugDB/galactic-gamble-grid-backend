@@ -1,15 +1,9 @@
 import { TicketNumbersCostMap } from '@/core/entities/types/ticket-numbers-cost-map'
 import { TicketsCostsRepository } from '@/domain/repositories/tickets-costs-repository'
+import { TICKETS_COSTS } from '../config/tickets-costs'
 
 export class InMemoryTicketsCostsRepository implements TicketsCostsRepository {
-  public items: TicketNumbersCostMap = {
-    15: 3,
-    16: 100,
-    17: 300,
-    18: 5000,
-    19: 15000,
-    20: 25000,
-  }
+  public items: TicketNumbersCostMap = TICKETS_COSTS
 
   findByKey(key: number): Promise<number> {
     return Promise.resolve(this.items[key])

@@ -1,12 +1,15 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Ticket, TicketProps } from '@/domain/entities/ticket'
 
-export function makeTicketNumbers() {
+export function makeTicketNumbers(
+  min: boolean = true,
+  subtracticMatches: 0 | 1 | 2 | 3 | 4 | 5 = 0,
+) {
   // generate min 15 max 20 numbers
   return [
     ...Array.from(
       {
-        length: 15,
+        length: 15 - subtracticMatches,
       },
       () => 1,
     ),
@@ -14,11 +17,11 @@ export function makeTicketNumbers() {
       {
         length: 5,
       },
-      () => Math.floor(Math.random() * 2),
+      () => (min ? 0 : Math.floor(Math.random() * 2)),
     ),
     ...Array.from(
       {
-        length: 5,
+        length: 5 + subtracticMatches,
       },
       () => 0,
     ),
