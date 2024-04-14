@@ -27,18 +27,17 @@ export function makeTicketNumbers() {
 
 export function makeTicket(
   override: Partial<TicketProps> = {},
-  userId: UniqueEntityID,
   id?: UniqueEntityID,
 ) {
-  const student = Ticket.create(
+  const ticket = Ticket.create(
     {
       active: true,
       numbers: makeTicketNumbers(),
-      userId,
+      userId: override.userId ?? new UniqueEntityID(),
       ...override,
     },
     id,
   )
 
-  return student
+  return ticket
 }
