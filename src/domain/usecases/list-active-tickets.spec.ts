@@ -17,7 +17,7 @@ describe('List Active Tickets', () => {
     sut = new ListTicketsUseCase(inMemoryTicketsRepository)
   })
 
-  it('should be able to get balance', async () => {
+  it('should be able to list active tickets', async () => {
     const user = makeUser()
     await inMemoryUsersRepository.create(user)
     const tickets = Array.from({ length: 10 }).map((_) =>

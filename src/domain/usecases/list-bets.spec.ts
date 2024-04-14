@@ -24,7 +24,7 @@ describe('List Bets', () => {
     sut = new ListBetsUseCase(inMemoryBetsRepository)
   })
 
-  it('should be able to get balance', async () => {
+  it('should be able to find bets', async () => {
     const user = makeUser()
     await inMemoryUsersRepository.create(user)
     const bets = Array.from({ length: 10 }).map((_) =>
