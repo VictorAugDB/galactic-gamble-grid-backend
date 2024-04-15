@@ -4,6 +4,7 @@ import { InMemoryUsersRepository } from '@/test/repositories/in-memory-users-rep
 import { UserAlreadyExistsError } from './errors/user-already-exists'
 import { FakeHasher } from '@/test/cryptography/fake-hasher'
 import { makeUser } from '@/test/factories/make-user'
+import { FakeEncrypter } from '@/test/cryptography/fake-encrypter'
 
 let inMemoryUsersRepository: InMemoryUsersRepository
 let sut: SignUpUserUseCase
@@ -12,16 +13,20 @@ describe('Sign Up User', () => {
   beforeEach(() => {
     const fakeHasher = new FakeHasher()
     inMemoryUsersRepository = new InMemoryUsersRepository()
-    sut = new SignUpUserUseCase(inMemoryUsersRepository, fakeHasher)
+    sut = new SignUpUserUseCase(
+      inMemoryUsersRepository,
+      fakeHasher,
+      new FakeEncrypter(),
+    )
   })
 
-  it('should be able to create user', async () => {
+  it('should be able to create user and return access token', async () => {
     const data = {
       name: faker.person.fullName(),
       email: faker.internet.email(),
     }
 
-    await sut.execute({
+    const result = await sut.execute({
       ...data,
       password: faker.internet.password(),
     })
@@ -29,6 +34,9 @@ describe('Sign Up User', () => {
     expect(inMemoryUsersRepository.items[0]).toEqual(
       expect.objectContaining(data),
     )
+    expect(result).toEqual({
+      accessToken: expect.any(String),
+    })
   })
 
   it('should throw if user already exists', async () => {

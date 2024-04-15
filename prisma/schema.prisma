@@ -1,0 +1,87 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  bets         Bet[]
+  tickets      Ticket[]
+  transactions Transaction[]
+
+  @@map("user")
+}
+
+enum Result {
+  WIN
+  LOSE
+}
+
+model Ticket {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  numbers   Int[]
+  result    Result?
+  betId     String?  @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  transaction Transaction @relation(fields: [id], references: [id])
+  user        User?       @relation(fields: [userId], references: [id])
+  Bet         Bet?        @relation(fields: [betId], references: [id])
+
+  @@index([userId])
+  @@map("ticket")
+}
+
+model Bet {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId        String   @db.ObjectId
+  sortedNumbers Int[]
+  createdAt     DateTime @default(now())
+
+  user        User          @relation(fields: [userId], references: [id])
+  transaction Transaction[]
+  tickets     Ticket[]
+
+  @@index([userId])
+  @@map("bet")
+}
+
+enum TransactionType {
+  BUY_TICKET
+  REWARD
+  ADD_MONEY
+}
+
+model Transaction {
+  id        String          @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String          @db.ObjectId
+  value     Float
+  type      TransactionType
+  createdAt DateTime        @default(now())
+  betId     String          @db.ObjectId
+
+  bet    Bet?    @relation(fields: [betId], references: [id])
+  ticket Ticket?
+  user   User?   @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@map("transaction")
+}

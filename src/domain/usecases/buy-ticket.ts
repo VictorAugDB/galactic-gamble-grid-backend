@@ -5,12 +5,14 @@ import { TransactionsRepository } from '../repositories/transactions-repository'
 import { InsufficientBalanceError } from './errors/insufficient-balance'
 import { BuyTicketTransaction } from '../entities/buy-ticket-transaction'
 import { TicketsCostsRepository } from '../repositories/tickets-costs-repository'
+import { Injectable } from '@nestjs/common'
 
 type BuyTicketUseCaseRequest = {
   userId: string
   numbers: number[]
 }
 
+@Injectable()
 export class BuyTicketUseCase {
   constructor(
     private transactionsRepository: TransactionsRepository,

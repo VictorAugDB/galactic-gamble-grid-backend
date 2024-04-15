@@ -2,7 +2,7 @@ import { InMemoryTransactionsRepository } from '@/test/repositories/in-memory-tr
 import { InMemoryUsersRepository } from '@/test/repositories/in-memory-users-repository'
 import { makeUser } from '@/test/factories/make-user'
 import { InMemoryTicketsRepository } from '@/test/repositories/in-memory-tickets-repository'
-import { AddMoneyUseCase } from './add-money.'
+import { AddMoneyUseCase } from './add-money'
 import { faker } from '@faker-js/faker'
 
 let inMemoryUsersRepository: InMemoryUsersRepository

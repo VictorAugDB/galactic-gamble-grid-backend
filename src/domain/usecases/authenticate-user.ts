@@ -1,3 +1,4 @@
+import { Injectable } from '@nestjs/common'
 import { Encrypter } from '../cryptography/encrypter'
 import { HashComparer } from '../cryptography/hash-comparer'
 import { UsersRepository } from '../repositories/users-repository'
@@ -12,6 +13,7 @@ type AuthenticateUserUseCaseResponse = {
   accessToken: string
 }
 
+@Injectable()
 export class AuthenticateUserUseCase {
   constructor(
     private usersRepository: UsersRepository,
@@ -23,6 +25,7 @@ export class AuthenticateUserUseCase {
     email,
     password,
   }: AuthenticateUserUseCaseRequest): Promise<AuthenticateUserUseCaseResponse> {
+    console.log(this.usersRepository)
     const user = await this.usersRepository.findByEmail(email)
 
     if (!user) {

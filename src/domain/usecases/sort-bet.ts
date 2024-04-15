@@ -6,6 +6,7 @@ import { BetsRewardsRepository } from '../repositories/bets-rewards-repository'
 import { BetRewardTransaction } from '../entities/bet-reward-transaction'
 import { Bet } from '../entities/bet'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { Injectable } from '@nestjs/common'
 
 type SortBetUseCaseRequest = {
   userId: string
@@ -18,7 +19,7 @@ type SortBetUseCaseResponse = {
   }>
   sortedNumbers: number[]
 }
-
+@Injectable()
 export class SortBetUseCase {
   constructor(
     private betsRepository: BetsRepository,

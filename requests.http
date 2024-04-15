@@ -1,0 +1,31 @@
+# @name sign-up-user
+POST http://localhost:3333/sign-up
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "email": "johndoe5@example.com",
+    "password": "Aasd123@"
+}
+
+###
+
+# @name authenticate-user
+POST http://localhost:3333/authenticate-user
+Content-Type: application/json
+
+{
+    "email": "johndoe5@example.com",
+    "password": "Aasd123@"
+}
+
+###
+
+# @name buy-ticket
+POST http://localhost:3333/buy-ticket
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MTM0MTdjNi00NTNkLTQ4NTQtOWZjOS00MjFjNzJmM2U3NTQiLCJpYXQiOjE3MTMyMTEzOTksImV4cCI6MTcxMzI5Nzc5OSwidGVzdCI6InRlc3QifQ.v072zfTQ3dTLSCu_spJjA9Lrq0Qr16n76nR2V7c1vzc
+
+{
+
+}
