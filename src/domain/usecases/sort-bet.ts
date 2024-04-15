@@ -68,6 +68,8 @@ export class SortBetUseCase {
       userId: new UniqueEntityID(userId),
     })
 
+    tickets.forEach((ticket) => (ticket.betId = bet.id))
+
     const transactions = winningTickets.map((wt) =>
       BetRewardTransaction.create({
         bet,

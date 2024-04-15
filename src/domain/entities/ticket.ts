@@ -4,7 +4,7 @@ import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 
 export interface TicketProps {
   userId: UniqueEntityID
-  betId?: string
+  betId?: UniqueEntityID
   numbers: number[]
   result: 'win' | 'lose' | null
   createdAt: Date
@@ -18,6 +18,11 @@ export class Ticket extends Entity<TicketProps> {
 
   get betId() {
     return this.props.betId
+  }
+
+  set betId(betId: UniqueEntityID) {
+    this.props.betId = betId
+    this.touch()
   }
 
   get numbers() {

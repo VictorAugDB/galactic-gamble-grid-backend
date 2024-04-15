@@ -9,6 +9,7 @@ import { makeTicket, makeTicketNumbers } from '@/test/factories/make-ticket'
 import { BetRewardTransaction } from '../entities/bet-reward-transaction'
 import { InMemoryBetsRewardsRepository } from '@/test/repositories/in-memory-bets-rewards-repository'
 import { BETS_REWARDS } from '@/test/config/bets-rewards'
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 
 let inMemoryUsersRepository: InMemoryUsersRepository
 let inMemoryTransactionsRepository: InMemoryTransactionsRepository
@@ -56,6 +57,7 @@ describe('Sort Bet', () => {
     expect(inMemoryTicketsRepository.items[0]).toEqual(
       expect.objectContaining({
         result: 'win',
+        betId: expect.any(UniqueEntityID),
       }),
     )
 
