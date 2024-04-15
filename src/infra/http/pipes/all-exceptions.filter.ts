@@ -7,6 +7,7 @@ import {
   ArgumentsHost,
   HttpException,
   HttpStatus,
+  BadRequestException,
 } from '@nestjs/common'
 import { HttpAdapterHost } from '@nestjs/core'
 
@@ -30,7 +31,13 @@ export class AllExceptionsFilter implements ExceptionFilter {
       timestamp: new Date().toISOString(),
       path: httpAdapter.getRequestUrl(ctx.getRequest()),
       message: '',
+      errors:
+        exception instanceof BadRequestException
+          ? exception.getResponse()
+          : null,
     }
+
+    console.log(exception)
 
     if (exception instanceof WrongCredentialsError) {
       httpStatus = HttpStatus.UNAUTHORIZED

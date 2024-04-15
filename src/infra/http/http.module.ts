@@ -7,6 +7,7 @@ import { BuyTicketController } from './controllers/buy-ticket.controller'
 import { EnvModule } from '../env/env.module'
 import { AuthenticateUserUseCase } from '@/domain/usecases/authenticate-user'
 import { AuthenticateUserController } from './controllers/authenticate-user.controller'
+import { BuyTicketUseCase } from '@/domain/usecases/buy-ticket'
 
 @Module({
   imports: [DatabaseModule, CryptographyModule, EnvModule],
@@ -15,6 +16,6 @@ import { AuthenticateUserController } from './controllers/authenticate-user.cont
     BuyTicketController,
     AuthenticateUserController,
   ],
-  providers: [SignUpUserUseCase, AuthenticateUserUseCase],
+  providers: [SignUpUserUseCase, AuthenticateUserUseCase, BuyTicketUseCase],
 })
 export class HttpModule {}

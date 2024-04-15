@@ -25,7 +25,6 @@ export class AuthenticateUserUseCase {
     email,
     password,
   }: AuthenticateUserUseCaseRequest): Promise<AuthenticateUserUseCaseResponse> {
-    console.log(this.usersRepository)
     const user = await this.usersRepository.findByEmail(email)
 
     if (!user) {

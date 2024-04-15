@@ -15,8 +15,6 @@ export class PrismaUsersRepository implements UsersRepository {
       },
     })
 
-    console.log(user)
-
     if (!user) {
       return null
     }

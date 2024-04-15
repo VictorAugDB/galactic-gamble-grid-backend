@@ -1,6 +1,7 @@
 import { AddMoneyTransaction } from '@/domain/entities/add-money-transaction'
 import { BetRewardTransaction } from '@/domain/entities/bet-reward-transaction'
 import { BuyTicketTransaction } from '@/domain/entities/buy-ticket-transaction'
+import { calculateUserBalance } from '@/domain/helpers/calculate-user-balance'
 import { TicketsRepository } from '@/domain/repositories/tickets-repository'
 import { TransactionsRepository } from '@/domain/repositories/transactions-repository'
 
@@ -21,21 +22,9 @@ export class InMemoryTransactionsRepository implements TransactionsRepository {
   }
 
   getUserBalance(userId: string): Promise<number> {
-    const userBalance = this.items.reduce((acc, curr) => {
-      if (curr.userId.toString() === userId) {
-        switch (curr.constructor) {
-          case AddMoneyTransaction:
-          case BetRewardTransaction:
-            return acc + curr.value
-          case BuyTicketTransaction:
-            return acc - curr.value
-          default:
-            return acc
-        }
-      }
-
-      return acc
-    }, 0)
+    const userBalance = calculateUserBalance(
+      this.items.filter((item) => item.userId.toString() === userId),
+    )
 
     return Promise.resolve(userBalance)
   }
