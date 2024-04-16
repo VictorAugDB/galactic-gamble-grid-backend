@@ -30,6 +30,17 @@ export class PrismaTicketsRepository implements TicketsRepository {
     return activeTickets.map((t) => PrismaTicketMapper.toDomain(t))
   }
 
+  async countNumberOfActiveTicketsByUserId(userId: string): Promise<number> {
+    const numberOfActiveTickets = await this.prisma.ticket.count({
+      where: {
+        userId,
+        result: null,
+      },
+    })
+
+    return numberOfActiveTickets
+  }
+
   async create(ticket: Ticket): Promise<void> {
     const data = PrismaTicketMapper.toPrisma(ticket)
 

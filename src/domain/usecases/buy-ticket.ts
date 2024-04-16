@@ -6,6 +6,9 @@ import { InsufficientBalanceError } from './errors/insufficient-balance'
 import { BuyTicketTransaction } from '../entities/buy-ticket-transaction'
 import { TicketsCostsRepository } from '../repositories/tickets-costs-repository'
 import { Injectable } from '@nestjs/common'
+import { TicketsRepository } from '../repositories/tickets-repository'
+import { MAX_NUMBER_OF_ACTIVE_TICKETS } from '@/core/config/max-number-of-active-tickets'
+import { TooManyActiveTicketsErrorError } from './errors/too-many-active-tickets'
 
 type BuyTicketUseCaseRequest = {
   userId: string
@@ -17,9 +20,17 @@ export class BuyTicketUseCase {
   constructor(
     private transactionsRepository: TransactionsRepository,
     private ticketsCostsRepository: TicketsCostsRepository,
+    private ticketsRepository: TicketsRepository,
   ) {}
 
   async execute({ userId, numbers }: BuyTicketUseCaseRequest): Promise<void> {
+    const userActiveTicketsCount =
+      await this.ticketsRepository.countNumberOfActiveTicketsByUserId(userId)
+
+    if (userActiveTicketsCount >= MAX_NUMBER_OF_ACTIVE_TICKETS) {
+      throw new TooManyActiveTicketsErrorError()
+    }
+
     const userBalance = await this.transactionsRepository.getUserBalance(userId)
     const ticketValue = await this.ticketsCostsRepository.findByKey(
       countTicketNumbers(numbers),
