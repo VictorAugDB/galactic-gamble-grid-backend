@@ -18,6 +18,14 @@ export class InMemoryTicketsRepository implements TicketsRepository {
     )
   }
 
+  countNumberOfActiveTicketsByUserId(userId: string): Promise<number> {
+    return Promise.resolve(
+      this.items.filter(
+        (item) => item.userId.toString() === userId && item.result === null,
+      ).length,
+    )
+  }
+
   create(ticket: Ticket): Promise<void> {
     this.items.push(ticket)
 

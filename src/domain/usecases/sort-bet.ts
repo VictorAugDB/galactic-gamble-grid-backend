@@ -7,6 +7,7 @@ import { BetRewardTransaction } from '../entities/bet-reward-transaction'
 import { Bet } from '../entities/bet'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Injectable } from '@nestjs/common'
+import { MAX_NUMBER_OF_ACTIVE_TICKETS } from '@/core/config/max-number-of-active-tickets'
 
 type SortBetUseCaseRequest = {
   userId: string
@@ -30,13 +31,20 @@ export class SortBetUseCase {
   async execute({
     userId,
   }: SortBetUseCaseRequest): Promise<SortBetUseCaseResponse> {
-    const tickets =
-      await this.ticketsRepository.findActiveTicketsByUserId(userId)
+    const tickets = await this.ticketsRepository.findActiveTicketsByUserId(
+      userId,
+      {
+        page: 1,
+        size: MAX_NUMBER_OF_ACTIVE_TICKETS,
+      },
+    )
 
     if (!tickets.length) {
       throw new ResourceNotFoundError()
     }
     const numbersRewards = await this.betsRewardsRepository.findMany()
+    console.log(numbersRewards)
+
     const minNumbersToReward = Number(Object.keys(numbersRewards)[0])
 
     const sortedNumbers = sortBetNumbers()
@@ -49,6 +57,11 @@ export class SortBetUseCase {
 
       if (numberOfMatches >= minNumbersToReward) {
         ticket.result = 'win'
+
+        console.log({
+          id: ticket.id.toString(),
+          numberOfMatches,
+        })
 
         return [
           {

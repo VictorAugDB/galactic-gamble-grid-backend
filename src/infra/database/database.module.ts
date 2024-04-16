@@ -9,6 +9,10 @@ import { PrismaTicketsCostsRepository } from './prisma/repositories/prisma-ticke
 import { CacheModule } from '@/infra/cache/cache.module'
 import { TicketsRepository } from '@/domain/repositories/tickets-repository'
 import { PrismaTicketsRepository } from './prisma/repositories/prisma-tickets.repository'
+import { BetsRepository } from '@/domain/repositories/bets-repository'
+import { PrismaBetsRepository } from './prisma/repositories/prisma-bets-repository'
+import { BetsRewardsRepository } from '@/domain/repositories/bets-rewards-repository'
+import { PrismaBetsRewardsRepository } from './prisma/repositories/prisma-bets-rewards-repository'
 
 @Module({
   imports: [CacheModule],
@@ -30,6 +34,14 @@ import { PrismaTicketsRepository } from './prisma/repositories/prisma-tickets.re
       provide: TicketsRepository,
       useClass: PrismaTicketsRepository,
     },
+    {
+      provide: BetsRepository,
+      useClass: PrismaBetsRepository,
+    },
+    {
+      provide: BetsRewardsRepository,
+      useClass: PrismaBetsRewardsRepository,
+    },
   ],
   exports: [
     PrismaService,
@@ -37,6 +49,8 @@ import { PrismaTicketsRepository } from './prisma/repositories/prisma-tickets.re
     TransactionsRepository,
     TicketsCostsRepository,
     TicketsRepository,
+    BetsRepository,
+    BetsRewardsRepository,
   ],
 })
 export class DatabaseModule {}

@@ -14,6 +14,10 @@ import { GetBalanceController } from './controllers/get-balance.controller'
 import { GetBalanceUseCase } from '@/domain/usecases/get-balance'
 import { ListActiveTicketsController } from './controllers/list-active-tickets.controller'
 import { ListActiveTicketsUseCase } from '@/domain/usecases/list-active-tickets'
+import { ListBetsController } from './controllers/list-bets.controller'
+import { ListBetsUseCase } from '@/domain/usecases/list-bets'
+import { SortBetController } from './controllers/sort-bet.controller'
+import { SortBetUseCase } from '@/domain/usecases/sort-bet'
 
 @Module({
   imports: [DatabaseModule, CryptographyModule, EnvModule],
@@ -24,6 +28,8 @@ import { ListActiveTicketsUseCase } from '@/domain/usecases/list-active-tickets'
     AddMoneyController,
     GetBalanceController,
     ListActiveTicketsController,
+    ListBetsController,
+    SortBetController,
   ],
   providers: [
     SignUpUserUseCase,
@@ -32,6 +38,8 @@ import { ListActiveTicketsUseCase } from '@/domain/usecases/list-active-tickets'
     AddMoneyUseCase,
     GetBalanceUseCase,
     ListActiveTicketsUseCase,
+    ListBetsUseCase,
+    SortBetUseCase,
   ],
 })
 export class HttpModule {}

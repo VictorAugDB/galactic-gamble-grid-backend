@@ -1,6 +1,6 @@
 import { Ticket } from '@/domain/entities/ticket'
 
-type TicketsHTTP = {
+type TicketHTTP = {
   id: string
   userId: string
   betId?: string
@@ -12,7 +12,7 @@ type TicketsHTTP = {
 }
 
 export class TicketsPresenter {
-  static toHTTP(ticket: Ticket): TicketsHTTP {
+  static toHTTP(ticket: Ticket): TicketHTTP {
     return {
       id: ticket.id.toString(),
       numbers: ticket.numbers,

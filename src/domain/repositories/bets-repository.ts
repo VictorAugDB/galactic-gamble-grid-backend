@@ -6,7 +6,7 @@ export abstract class BetsRepository {
   abstract findById(id: string): Promise<Bet | null>
   abstract findManyByUserId(
     userId: string,
-    pagination?: Pagination,
+    pagination: Pagination,
   ): Promise<Bet[]>
 
   abstract create(bet: Bet, transactions: BetRewardTransaction[]): Promise<void>
