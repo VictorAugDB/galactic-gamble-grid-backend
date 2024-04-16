@@ -14,7 +14,6 @@
     "strict": true,                             
     "incremental": true,
     "skipLibCheck": true,
-    "strictNullChecks": false,
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
@@ -26,6 +25,5 @@
       "vitest/globals"
     ]
   },
-  "include": ["**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }

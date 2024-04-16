@@ -5,7 +5,7 @@ import { Bet } from './bet'
 
 export interface BetRewardTransactionProps {
   userId: UniqueEntityID
-  bet: Bet
+  bet?: Bet
   value: number
   createdAt: Date
 }

@@ -1,10 +1,10 @@
-import { Body, Controller, Post, UsePipes } from '@nestjs/common'
+import { Body, Controller, Post } from '@nestjs/common'
 import { z } from 'zod'
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe'
 import { BuyTicketUseCase } from '@/domain/usecases/buy-ticket'
+import { CurrentUser, UserPayload } from '@/infra/auth/current-user-decorator'
 
 const buyTicketBodySchema = z.object({
-  userId: z.string(),
   numbers: z
     .number()
     .array()
@@ -33,16 +33,21 @@ const buyTicketBodySchema = z.object({
     ),
 })
 
+const bodyValidationPipe = new ZodValidationPipe(buyTicketBodySchema)
+
 type BuyTicketBodySchema = z.infer<typeof buyTicketBodySchema>
 
-@Controller('/buy-ticket')
+@Controller('/tickets')
 export class BuyTicketController {
   constructor(private buyTicket: BuyTicketUseCase) {}
 
   @Post()
-  @UsePipes(new ZodValidationPipe(buyTicketBodySchema))
-  async handle(@Body() body: BuyTicketBodySchema) {
-    const { numbers, userId } = body
+  async handle(
+    @Body(bodyValidationPipe) body: BuyTicketBodySchema,
+    @CurrentUser() user: UserPayload,
+  ) {
+    const { numbers } = body
+    const { sub: userId } = user
 
     await this.buyTicket.execute({ numbers, userId })
   }

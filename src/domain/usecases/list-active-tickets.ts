@@ -4,19 +4,19 @@ import { TicketsRepository } from '../repositories/tickets-repository'
 import { PAGINATION } from '@/core/config/pagination'
 import { Injectable } from '@nestjs/common'
 
-type ListTicketsUseCaseRequest = {
+type ListActiveTicketsUseCaseRequest = {
   userId: string
   pagination?: Pagination
 }
 
 @Injectable()
-export class ListTicketsUseCase {
+export class ListActiveTicketsUseCase {
   constructor(private ticketsRepository: TicketsRepository) {}
 
   async execute({
     userId,
     pagination = PAGINATION,
-  }: ListTicketsUseCaseRequest): Promise<Ticket[]> {
+  }: ListActiveTicketsUseCaseRequest): Promise<Ticket[]> {
     const tickets = await this.ticketsRepository.findActiveTicketsByUserId(
       userId,
       pagination,

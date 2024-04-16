@@ -30,16 +30,18 @@ export class BuyTicketUseCase {
       throw new InsufficientBalanceError()
     }
 
-    const ticket = Ticket.create({
-      numbers,
-      userId: new UniqueEntityID(userId),
-    })
-
     const transaction = BuyTicketTransaction.create({
       userId: new UniqueEntityID(userId),
       value: ticketValue,
-      ticket,
     })
+
+    const ticket = Ticket.create({
+      numbers,
+      userId: new UniqueEntityID(userId),
+      transactionId: transaction.id,
+    })
+
+    transaction.ticket = ticket
 
     await this.transactionsRepository.create(transaction)
   }

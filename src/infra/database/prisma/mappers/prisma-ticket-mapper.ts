@@ -8,8 +8,10 @@ export class PrismaTicketMapper {
       {
         numbers: raw.numbers,
         userId: new UniqueEntityID(raw.userId),
-        result: raw.result === 'LOSE' ? 'lose' : 'win',
-        betId: new UniqueEntityID(raw.betId),
+        result:
+          raw.result === 'LOSE' ? 'lose' : raw.result === 'WIN' ? 'win' : null,
+        betId: raw.betId ? new UniqueEntityID(raw.betId) : undefined,
+        transactionId: new UniqueEntityID(raw.transactionId),
         createdAt: raw.createdAt,
         updatedAt: raw.updatedAt,
       },
@@ -18,14 +20,17 @@ export class PrismaTicketMapper {
   }
 
   static toPrisma(ticket: Ticket): Prisma.TicketUncheckedCreateInput {
-    console.log(ticket)
-
     return {
       userId: ticket.userId.toString(),
       betId: ticket.betId ? ticket.betId.toString() : undefined,
       createdAt: ticket.createdAt,
       numbers: ticket.numbers,
-      result: ticket.result === 'lose' ? 'LOSE' : 'WIN',
+      result:
+        ticket.result === 'lose'
+          ? 'LOSE'
+          : ticket.result === 'win'
+            ? 'WIN'
+            : null,
       transactionId: ticket.transactionId.toString(),
       updatedAt: ticket.updatedAt,
     }

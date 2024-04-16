@@ -9,6 +9,7 @@ import { makeTicketNumbers } from '@/test/factories/make-ticket'
 import { InsufficientBalanceError } from './errors/insufficient-balance'
 import { AddMoneyTransaction } from '../entities/add-money-transaction'
 import { BuyTicketTransaction } from '../entities/buy-ticket-transaction'
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 
 let inMemoryTicketsCostsRepository: InMemoryTicketsCostsRepository
 let inMemoryUsersRepository: InMemoryUsersRepository
@@ -57,6 +58,7 @@ describe('Buy Ticket', () => {
         userId: user.id,
         numbers,
         result: null,
+        transactionId: expect.any(UniqueEntityID),
       }),
     )
     expect(inMemoryTransactionsRepository.items[1]).toBeInstanceOf(

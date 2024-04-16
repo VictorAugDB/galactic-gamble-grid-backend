@@ -5,7 +5,7 @@ import { Ticket } from './ticket'
 
 export interface BuyTicketTransactionProps {
   userId: UniqueEntityID
-  ticket: Ticket
+  ticket?: Ticket
   value: number
   createdAt: Date
 }
@@ -15,8 +15,12 @@ export class BuyTicketTransaction extends Entity<BuyTicketTransactionProps> {
     return this.props.userId
   }
 
-  get ticket() {
+  get ticket(): Ticket | undefined {
     return this.props.ticket
+  }
+
+  set ticket(ticket: Ticket) {
+    this.props.ticket = ticket
   }
 
   get value() {

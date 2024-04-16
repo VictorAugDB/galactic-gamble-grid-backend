@@ -8,10 +8,15 @@ import { calculateUserBalance } from '@/domain/helpers/calculate-user-balance'
 import { PrismaAddMoneyTransactionMapper } from '../mappers/prisma-add-money-transaction-mapper'
 import { PrismaBuyTicketTransactionMapper } from '../mappers/prisma-buy-ticket-transaction-mapper'
 import { PrismaBetRewardTransactionMapper } from '../mappers/prisma-reward-transaction'
+import { CacheRepository } from '@/infra/cache/cache-repository'
+import { balance } from '@/infra/cache/helpers'
 
 @Injectable()
 export class PrismaTransactionsRepository implements TransactionsRepository {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private cache: CacheRepository,
+  ) {}
 
   findById(
     _id: string,
@@ -22,6 +27,13 @@ export class PrismaTransactionsRepository implements TransactionsRepository {
   }
 
   async getUserBalance(userId: string): Promise<number> {
+    const cacheHit = await this.cache.get(balance(userId))
+
+    if (cacheHit) {
+      const cacheData = Number(cacheHit)
+      return cacheData
+    }
+
     const transactions = await this.prisma.transaction.findMany({
       where: {
         userId,
@@ -38,6 +50,10 @@ export class PrismaTransactionsRepository implements TransactionsRepository {
       }
     })
 
+    const userBalance = calculateUserBalance(domainTransactions)
+
+    await this.cache.set(balance(userId), JSON.stringify(userBalance))
+
     return calculateUserBalance(domainTransactions)
   }
 
@@ -49,8 +65,6 @@ export class PrismaTransactionsRepository implements TransactionsRepository {
   ): Promise<void> {
     if (transaction instanceof BuyTicketTransaction) {
       const data = PrismaBuyTicketTransactionMapper.toPrisma(transaction)
-
-      console.log(data)
 
       await this.prisma.transaction.create({
         data,
@@ -71,5 +85,7 @@ export class PrismaTransactionsRepository implements TransactionsRepository {
         data,
       })
     }
+
+    await this.cache.delete(balance(transaction.userId.toString()))
   }
 }

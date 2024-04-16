@@ -36,6 +36,7 @@ export function makeTicket(
     {
       numbers: makeTicketNumbers(),
       userId: override.userId ?? new UniqueEntityID(),
+      transactionId: override.transactionId ?? new UniqueEntityID(),
       ...override,
     },
     id,

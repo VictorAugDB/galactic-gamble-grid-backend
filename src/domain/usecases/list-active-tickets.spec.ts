@@ -2,19 +2,19 @@ import { InMemoryUsersRepository } from '@/test/repositories/in-memory-users-rep
 import { makeUser } from '@/test/factories/make-user'
 import { InMemoryTicketsRepository } from '@/test/repositories/in-memory-tickets-repository'
 import { PAGINATION } from '@/core/config/pagination'
-import { ListTicketsUseCase } from './list-active-tickets'
+import { ListActiveTicketsUseCase } from './list-active-tickets'
 import { makeTicket } from '@/test/factories/make-ticket'
 
 let inMemoryUsersRepository: InMemoryUsersRepository
 let inMemoryTicketsRepository: InMemoryTicketsRepository
-let sut: ListTicketsUseCase
+let sut: ListActiveTicketsUseCase
 
 describe('List Active Tickets', () => {
   beforeEach(() => {
     inMemoryTicketsRepository = new InMemoryTicketsRepository()
     inMemoryUsersRepository = new InMemoryUsersRepository()
 
-    sut = new ListTicketsUseCase(inMemoryTicketsRepository)
+    sut = new ListActiveTicketsUseCase(inMemoryTicketsRepository)
   })
 
   it('should be able to list active tickets', async () => {

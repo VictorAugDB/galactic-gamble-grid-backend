@@ -11,3 +11,10 @@ services:
       - MONGO_REPLICA_PORT=27017
     ports:
       - 27017:27017
+  cache:
+    container_name: galactic-gamble-grid-cache
+    image: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - ./data/redis:/data

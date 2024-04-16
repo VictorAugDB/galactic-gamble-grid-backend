@@ -37,6 +37,11 @@ export class InMemoryTransactionsRepository implements TransactionsRepository {
   ): Promise<void> {
     if (transaction instanceof BuyTicketTransaction) {
       this.items.push(transaction)
+
+      if (!transaction.ticket) {
+        throw new Error('Missing Ticket')
+      }
+
       this.ticketsRepository.create(transaction.ticket)
     }
 

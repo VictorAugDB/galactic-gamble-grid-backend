@@ -18,10 +18,16 @@ export class PrismaBuyTicketTransactionMapper {
               numbers: raw.ticket.numbers,
               userId: new UniqueEntityID(raw.ticket.userId),
               createdAt: raw.ticket.createdAt,
-              result: raw.ticket.result === 'LOSE' ? 'lose' : 'win',
+              transactionId: new UniqueEntityID(raw.ticket.transactionId),
+              result:
+                raw.ticket.result === 'LOSE'
+                  ? 'lose'
+                  : raw.ticket.result === 'WIN'
+                    ? 'win'
+                    : null,
               updatedAt: raw.ticket.updatedAt,
             })
-          : null,
+          : undefined,
         createdAt: raw.createdAt,
       },
       new UniqueEntityID(raw.id),
@@ -34,15 +40,22 @@ export class PrismaBuyTicketTransactionMapper {
     return {
       type: 'BUY_TICKET',
       userId: transaction.userId.toString(),
-      ticket: {
-        create: {
-          userId: transaction.ticket.userId.toString(),
-          createdAt: transaction.ticket.createdAt,
-          numbers: transaction.ticket.numbers,
-          result: transaction.ticket.result === 'lose' ? 'LOSE' : 'WIN',
-          updatedAt: transaction.ticket.updatedAt,
-        },
-      },
+      ticket: transaction.ticket
+        ? {
+            create: {
+              userId: transaction.ticket.userId.toString(),
+              createdAt: transaction.ticket.createdAt,
+              numbers: transaction.ticket.numbers,
+              result:
+                transaction.ticket.result === 'lose'
+                  ? 'LOSE'
+                  : transaction.ticket.result === 'win'
+                    ? 'WIN'
+                    : null,
+              updatedAt: transaction.ticket.updatedAt,
+            },
+          }
+        : undefined,
       value: transaction.value,
       createdAt: transaction.createdAt,
     }

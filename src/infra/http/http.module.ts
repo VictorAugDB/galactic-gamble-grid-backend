@@ -8,6 +8,12 @@ import { EnvModule } from '../env/env.module'
 import { AuthenticateUserUseCase } from '@/domain/usecases/authenticate-user'
 import { AuthenticateUserController } from './controllers/authenticate-user.controller'
 import { BuyTicketUseCase } from '@/domain/usecases/buy-ticket'
+import { AddMoneyController } from './controllers/add-money.controller'
+import { AddMoneyUseCase } from '@/domain/usecases/add-money'
+import { GetBalanceController } from './controllers/get-balance.controller'
+import { GetBalanceUseCase } from '@/domain/usecases/get-balance'
+import { ListActiveTicketsController } from './controllers/list-active-tickets.controller'
+import { ListActiveTicketsUseCase } from '@/domain/usecases/list-active-tickets'
 
 @Module({
   imports: [DatabaseModule, CryptographyModule, EnvModule],
@@ -15,7 +21,17 @@ import { BuyTicketUseCase } from '@/domain/usecases/buy-ticket'
     SignUpController,
     BuyTicketController,
     AuthenticateUserController,
+    AddMoneyController,
+    GetBalanceController,
+    ListActiveTicketsController,
   ],
-  providers: [SignUpUserUseCase, AuthenticateUserUseCase, BuyTicketUseCase],
+  providers: [
+    SignUpUserUseCase,
+    AuthenticateUserUseCase,
+    BuyTicketUseCase,
+    AddMoneyUseCase,
+    GetBalanceUseCase,
+    ListActiveTicketsUseCase,
+  ],
 })
 export class HttpModule {}

@@ -37,8 +37,6 @@ export class AllExceptionsFilter implements ExceptionFilter {
           : null,
     }
 
-    console.log(exception)
-
     if (exception instanceof WrongCredentialsError) {
       httpStatus = HttpStatus.UNAUTHORIZED
       responseBody.message = exception.message

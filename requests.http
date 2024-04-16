@@ -21,12 +21,34 @@ Content-Type: application/json
 
 ###
 
+# @name add-money
+POST http://localhost:3333/add-money
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjFkNTNmMmU4MmFmYzIxNmI3ZmQ4OTUiLCJpYXQiOjE3MTMyNTk2NzcsImV4cCI6MTcxMzM0NjA3N30.EaL3jAdKxYeG7dsZvNbNMpp8auaEiFlbAS-IDJrVBos
+
+{
+    "value": 500000
+}
+
+###
+
+# @name get-balance
+GET http://localhost:3333/balance
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjFkNTNmMmU4MmFmYzIxNmI3ZmQ4OTUiLCJpYXQiOjE3MTMyNTk2NzcsImV4cCI6MTcxMzM0NjA3N30.EaL3jAdKxYeG7dsZvNbNMpp8auaEiFlbAS-IDJrVBos
+
+###
+
 # @name buy-ticket
-POST http://localhost:3333/buy-ticket
+POST http://localhost:3333/tickets
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjFkNTNmMmU4MmFmYzIxNmI3ZmQ4OTUiLCJpYXQiOjE3MTMyMjMxNTEsImV4cCI6MTcxMzMwOTU1MX0.WSD-8akhUYEkDCSSkhyBgl63YdIZdhK857OIXOAyIMY
 
 {
-    "userId": "661d53f2e82afc216b7fd895",
     "numbers": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0]
 }
+
+###
+
+# @name list-active-tickets
+GET http://localhost:3333/tickets?page=1&size=20
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjFkNTNmMmU4MmFmYzIxNmI3ZmQ4OTUiLCJpYXQiOjE3MTMyMjMxNTEsImV4cCI6MTcxMzMwOTU1MX0.WSD-8akhUYEkDCSSkhyBgl63YdIZdhK857OIXOAyIMY

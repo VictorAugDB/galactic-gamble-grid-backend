@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, NotFoundException } from '@nestjs/common'
 import { PrismaService } from '../prisma.service'
 import { TicketsCostsRepository } from '@/domain/repositories/tickets-costs-repository'
 import { TicketNumbersCostMap } from '@/core/entities/types/ticket-numbers-cost-map'
@@ -12,14 +12,18 @@ export class PrismaTicketsCostsRepository implements TicketsCostsRepository {
 
     const ticketsNumbersCosts = result[0].numbersCosts
 
+    if (!ticketsNumbersCosts) {
+      throw new NotFoundException('Tickets costs not found!')
+    }
+
     return ticketsNumbersCosts[key]
   }
 
-  create(ticketNumbersCostMap: TicketNumbersCostMap): Promise<void> {
+  create(_ticketNumbersCostMap: TicketNumbersCostMap): Promise<void> {
     throw new Error('Method not implemented.')
   }
 
-  update(key: number, val: number): Promise<void> {
+  update(_key: number, _val: number): Promise<void> {
     throw new Error('Method not implemented.')
   }
 }

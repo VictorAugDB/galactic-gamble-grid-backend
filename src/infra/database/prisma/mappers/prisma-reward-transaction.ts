@@ -28,14 +28,20 @@ export class PrismaBetRewardTransactionMapper {
                 Ticket.create({
                   numbers: t.numbers,
                   userId: new UniqueEntityID(t.userId),
-                  result: t.result === 'LOSE' ? 'lose' : 'win',
+                  transactionId: new UniqueEntityID(t.transactionId),
+                  result:
+                    t.result === 'LOSE'
+                      ? 'lose'
+                      : t.result === 'WIN'
+                        ? 'win'
+                        : null,
                   createdAt: t.createdAt,
                   updatedAt: t.updatedAt,
                 }),
               ),
               userId: new UniqueEntityID(raw.bet.userId),
             })
-          : null,
+          : undefined,
         createdAt: raw.createdAt,
       },
       new UniqueEntityID(raw.id),
@@ -47,7 +53,7 @@ export class PrismaBetRewardTransactionMapper {
   ): Prisma.TransactionUncheckedCreateInput {
     return {
       type: 'REWARD',
-      betId: transaction.bet.id.toString(),
+      betId: transaction.bet ? transaction.bet.id.toString() : undefined,
       userId: transaction.userId.toString(),
       value: transaction.value,
       createdAt: transaction.createdAt,
