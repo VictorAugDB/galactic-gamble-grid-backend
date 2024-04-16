@@ -43,7 +43,6 @@ export class SortBetUseCase {
       throw new ResourceNotFoundError()
     }
     const numbersRewards = await this.betsRewardsRepository.findMany()
-    console.log(numbersRewards)
 
     const minNumbersToReward = Number(Object.keys(numbersRewards)[0])
 
@@ -57,11 +56,6 @@ export class SortBetUseCase {
 
       if (numberOfMatches >= minNumbersToReward) {
         ticket.result = 'win'
-
-        console.log({
-          id: ticket.id.toString(),
-          numberOfMatches,
-        })
 
         return [
           {
