@@ -9,5 +9,10 @@ export abstract class BetsRepository {
     pagination: Pagination,
   ): Promise<Bet[]>
 
-  abstract create(bet: Bet, transactions: BetRewardTransaction[]): Promise<void>
+  abstract calculateUserProfit(userId: string): Promise<number>
+
+  abstract create(
+    bet: Bet,
+    transactions: BetRewardTransaction[],
+  ): Promise<{ betId: string }>
 }

@@ -2,7 +2,6 @@ import { Bet } from '@/domain/entities/bet'
 
 export interface BetHTTP {
   id: string
-  userId: string
   sortedNumbers: number[]
   totalRewards: number
   totalTicketsCost: number
@@ -21,7 +20,6 @@ export class BetsPresenter {
       sortedNumbers: bet.sortedNumbers,
       totalRewards: bet.totalRewards,
       totalTicketsCost,
-      userId: bet.userId.toString(),
       createdAt: bet.createdAt,
     }
   }

@@ -9,7 +9,7 @@ import { PrismaAddMoneyTransactionMapper } from '../mappers/prisma-add-money-tra
 import { PrismaBuyTicketTransactionMapper } from '../mappers/prisma-buy-ticket-transaction-mapper'
 import { PrismaBetRewardTransactionMapper } from '../mappers/prisma-reward-transaction'
 import { CacheRepository } from '@/infra/cache/cache-repository'
-import { balance } from '@/infra/cache/helpers'
+import { balance, profit } from '@/infra/cache/helpers'
 
 @Injectable()
 export class PrismaTransactionsRepository implements TransactionsRepository {
@@ -84,6 +84,7 @@ export class PrismaTransactionsRepository implements TransactionsRepository {
       await this.prisma.transaction.create({
         data,
       })
+      await this.cache.delete(profit(transaction.userId.toString()))
     }
 
     await this.cache.delete(balance(transaction.userId.toString()))

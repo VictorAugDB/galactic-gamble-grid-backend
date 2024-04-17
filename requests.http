@@ -44,13 +44,19 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjFkNTNmMmU4MmFmYzIxNmI3ZmQ4OTUiLCJpYXQiOjE3MTMzMTAyNjQsImV4cCI6MTcxMzM5NjY2NH0.wssUVi066MNSxnxoN2l_AuOLR5N5vo0ttng71ORpWbs
 
 {
-    "numbers": [1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+    "numbers": [1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1]
 }
 
 ###
 
 # @name list-active-tickets
 GET http://localhost:3333/tickets
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjFkNTNmMmU4MmFmYzIxNmI3ZmQ4OTUiLCJpYXQiOjE3MTMzMTAyNjQsImV4cCI6MTcxMzM5NjY2NH0.wssUVi066MNSxnxoN2l_AuOLR5N5vo0ttng71ORpWbs
+
+###
+
+# @name count-active-tickets
+GET http://localhost:3333/tickets/count
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjFkNTNmMmU4MmFmYzIxNmI3ZmQ4OTUiLCJpYXQiOjE3MTMzMTAyNjQsImV4cCI6MTcxMzM5NjY2NH0.wssUVi066MNSxnxoN2l_AuOLR5N5vo0ttng71ORpWbs
 
 ###
@@ -68,6 +74,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjFkNTNmM
 
 # @name list-bets
 GET http://localhost:3333/bets?page=1&size=20
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjFkNTNmMmU4MmFmYzIxNmI3ZmQ4OTUiLCJpYXQiOjE3MTMzMTAyNjQsImV4cCI6MTcxMzM5NjY2NH0.wssUVi066MNSxnxoN2l_AuOLR5N5vo0ttng71ORpWbs
+
+###
+
+# @name get-profit
+GET http://localhost:3333/profit
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjFkNTNmMmU4MmFmYzIxNmI3ZmQ4OTUiLCJpYXQiOjE3MTMzMTAyNjQsImV4cCI6MTcxMzM5NjY2NH0.wssUVi066MNSxnxoN2l_AuOLR5N5vo0ttng71ORpWbs
 
 ###

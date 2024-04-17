@@ -10,13 +10,16 @@ export class SortBetController {
   async handle(@CurrentUser() user: UserPayload) {
     const { sub: userId } = user
 
-    const { sortedNumbers, winningTickets } = await this.sortBet.execute({
-      userId,
-    })
+    const { sortedNumbers, winningTickets, betId } = await this.sortBet.execute(
+      {
+        userId,
+      },
+    )
 
     return {
       sortedNumbers,
       winningTickets,
+      betId,
     }
   }
 }

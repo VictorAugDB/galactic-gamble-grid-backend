@@ -81,9 +81,11 @@ describe('Sort Bet', () => {
         {
           id: ticket.id.toString(),
           value: BETS_REWARDS[15],
+          numbers: expect.any(Array),
         },
       ],
       sortedNumbers,
+      betId: expect.any(String),
     })
   })
 
@@ -150,8 +152,10 @@ describe('Sort Bet', () => {
           BETS_REWARDS[
             wt.numbers.reduce((acc, curr) => (curr === 1 ? acc + 1 : acc), 0)
           ],
+        numbers: expect.any(Array),
       })),
       sortedNumbers,
+      betId: expect.any(String),
     })
   })
 

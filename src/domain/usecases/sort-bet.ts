@@ -19,6 +19,7 @@ type SortBetUseCaseResponse = {
     value: number
   }>
   sortedNumbers: number[]
+  betId: string
 }
 @Injectable()
 export class SortBetUseCase {
@@ -60,6 +61,7 @@ export class SortBetUseCase {
         return [
           {
             id: ticket.id.toString(),
+            numbers: ticket.numbers,
             value: numbersRewards[numberOfMatches],
           },
         ]
@@ -92,8 +94,8 @@ export class SortBetUseCase {
       }),
     )
 
-    await this.betsRepository.create(bet, transactions)
+    const { betId } = await this.betsRepository.create(bet, transactions)
 
-    return { winningTickets, sortedNumbers }
+    return { winningTickets, sortedNumbers, betId }
   }
 }

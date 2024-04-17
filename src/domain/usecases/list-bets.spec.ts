@@ -30,6 +30,7 @@ describe('List Bets', () => {
     const bets = Array.from({ length: 10 }).map((_) =>
       Bet.create({
         sortedNumbers: sortBetNumbers(),
+        totalRewards: 0,
         tickets: [],
         userId: user.id,
       }),

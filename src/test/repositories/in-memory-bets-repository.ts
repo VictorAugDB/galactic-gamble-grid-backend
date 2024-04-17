@@ -24,7 +24,12 @@ export class InMemoryBetsRepository implements BetsRepository {
     )
   }
 
-  async create(bet: Bet, transactions: BetRewardTransaction[]): Promise<void> {
+  async create(
+    bet: Bet,
+    transactions: BetRewardTransaction[],
+  ): Promise<{
+    betId: string
+  }> {
     await Promise.all(
       bet.tickets.map((ticket) => this.ticketsRepository.save(ticket)),
     )
@@ -36,6 +41,12 @@ export class InMemoryBetsRepository implements BetsRepository {
 
     this.items.push(bet)
 
-    return Promise.resolve()
+    return Promise.resolve({
+      betId: bet.id.toString(),
+    })
+  }
+
+  calculateUserProfit(userId: string): Promise<number> {
+    throw new Error('Method not implemented.')
   }
 }
