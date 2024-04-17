@@ -23,6 +23,9 @@ export class PrismaTicketsRepository implements TicketsRepository {
         userId,
         result: null,
       },
+      include: {
+        transaction: true,
+      },
       skip: pagination ? pagination.page - 1 : 0,
       take: pagination ? pagination.size : PAGINATION.size,
     })

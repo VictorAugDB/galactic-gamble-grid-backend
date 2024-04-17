@@ -55,6 +55,7 @@ model Bet {
   id            String   @id @default(auto()) @map("_id") @db.ObjectId
   userId        String   @db.ObjectId
   sortedNumbers Int[]
+  totalRewards  Int
   createdAt     DateTime @default(now())
 
   user        User          @relation(fields: [userId], references: [id])

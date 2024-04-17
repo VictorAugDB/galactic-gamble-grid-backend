@@ -50,5 +50,9 @@ export class BuyTicketController {
     const { sub: userId } = user
 
     await this.buyTicket.execute({ numbers, userId })
+
+    return {
+      success: 'ok',
+    }
   }
 }

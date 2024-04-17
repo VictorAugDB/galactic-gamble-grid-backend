@@ -1,6 +1,7 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Bet } from '@/domain/entities/bet'
 import { BetRewardTransaction } from '@/domain/entities/bet-reward-transaction'
+import { BuyTicketTransaction } from '@/domain/entities/buy-ticket-transaction'
 import { Ticket } from '@/domain/entities/ticket'
 import {
   Bet as PrismaBet,
@@ -11,7 +12,11 @@ import {
 
 type TransactionWithTicket = Transaction & {
   bet?: PrismaBet & {
-    tickets: PrismaTicket[]
+    tickets: Array<
+      PrismaTicket & {
+        transaction: Transaction
+      }
+    >
   }
 }
 
@@ -24,11 +29,16 @@ export class PrismaBetRewardTransactionMapper {
         bet: raw.bet
           ? Bet.create({
               sortedNumbers: raw.bet.sortedNumbers,
+              totalRewards: raw.bet.totalRewards,
               tickets: raw.bet.tickets.map((t) =>
                 Ticket.create({
                   numbers: t.numbers,
                   userId: new UniqueEntityID(t.userId),
-                  transactionId: new UniqueEntityID(t.transactionId),
+                  transaction: BuyTicketTransaction.create({
+                    userId: new UniqueEntityID(t.transaction.userId),
+                    value: t.transaction.value,
+                    createdAt: t.createdAt,
+                  }),
                   result:
                     t.result === 'LOSE'
                       ? 'lose'

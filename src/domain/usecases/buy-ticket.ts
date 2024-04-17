@@ -49,7 +49,7 @@ export class BuyTicketUseCase {
     const ticket = Ticket.create({
       numbers,
       userId: new UniqueEntityID(userId),
-      transactionId: transaction.id,
+      transaction,
     })
 
     transaction.ticket = ticket

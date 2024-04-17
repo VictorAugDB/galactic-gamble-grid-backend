@@ -6,6 +6,7 @@ import { Ticket } from './ticket'
 export interface BetProps {
   userId: UniqueEntityID
   tickets: Ticket[]
+  totalRewards: number
   sortedNumbers: number[]
   createdAt: Date
 }
@@ -17,6 +18,10 @@ export class Bet extends Entity<BetProps> {
 
   get tickets() {
     return this.props.tickets
+  }
+
+  get totalRewards() {
+    return this.props.totalRewards
   }
 
   get sortedNumbers() {

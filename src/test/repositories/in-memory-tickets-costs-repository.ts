@@ -9,6 +9,10 @@ export class InMemoryTicketsCostsRepository implements TicketsCostsRepository {
     return Promise.resolve(this.items[key])
   }
 
+  findMany(): Promise<TicketNumbersCostMap> {
+    throw new Error('Method not implemented.')
+  }
+
   create(): Promise<void> {
     throw new Error('Method not implemented.')
   }

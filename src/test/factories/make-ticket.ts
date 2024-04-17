@@ -1,4 +1,5 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { BuyTicketTransaction } from '@/domain/entities/buy-ticket-transaction'
 import { Ticket, TicketProps } from '@/domain/entities/ticket'
 
 export function makeTicketNumbers(
@@ -32,11 +33,18 @@ export function makeTicket(
   override: Partial<TicketProps> = {},
   id?: UniqueEntityID,
 ) {
+  const userId = override.userId ?? new UniqueEntityID()
+
   const ticket = Ticket.create(
     {
       numbers: makeTicketNumbers(),
-      userId: override.userId ?? new UniqueEntityID(),
-      transactionId: override.transactionId ?? new UniqueEntityID(),
+      userId,
+      transaction:
+        override.transaction ??
+        BuyTicketTransaction.create({
+          userId,
+          value: 5000,
+        }),
       ...override,
     },
     id,

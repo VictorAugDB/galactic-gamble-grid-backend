@@ -25,5 +25,9 @@ export class AddMoneyController {
     const { sub: userId } = user
 
     await this.addMoney.execute({ userId, value })
+
+    return {
+      success: 'ok',
+    }
   }
 }

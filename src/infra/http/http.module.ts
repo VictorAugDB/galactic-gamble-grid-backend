@@ -18,6 +18,8 @@ import { ListBetsController } from './controllers/list-bets.controller'
 import { ListBetsUseCase } from '@/domain/usecases/list-bets'
 import { SortBetController } from './controllers/sort-bet.controller'
 import { SortBetUseCase } from '@/domain/usecases/sort-bet'
+import { GetTicketsCostsController } from './controllers/get-tickets-costs.controller'
+import { GetBetsRewardsController } from './controllers/get-bets-rewards.controller'
 
 @Module({
   imports: [DatabaseModule, CryptographyModule, EnvModule],
@@ -30,6 +32,8 @@ import { SortBetUseCase } from '@/domain/usecases/sort-bet'
     ListActiveTicketsController,
     ListBetsController,
     SortBetController,
+    GetTicketsCostsController,
+    GetBetsRewardsController,
   ],
   providers: [
     SignUpUserUseCase,

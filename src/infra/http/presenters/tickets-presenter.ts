@@ -4,7 +4,9 @@ type TicketHTTP = {
   id: string
   userId: string
   betId?: string
-  transactionId: string
+  transaction: {
+    value: number
+  }
   numbers: number[]
   result: 'win' | 'lose' | null
   createdAt: Date
@@ -17,7 +19,9 @@ export class TicketsPresenter {
       id: ticket.id.toString(),
       numbers: ticket.numbers,
       result: ticket.result,
-      transactionId: ticket.transactionId.toString(),
+      transaction: {
+        value: ticket.transaction.value,
+      },
       userId: ticket.userId.toString(),
       betId: ticket.betId ? ticket.betId.toString() : undefined,
       createdAt: ticket.createdAt,

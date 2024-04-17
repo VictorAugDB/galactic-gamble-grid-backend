@@ -73,6 +73,7 @@ describe('Sort Bet', () => {
       expect.objectContaining({
         userId: user.id,
         sortedNumbers,
+        totalRewards: BETS_REWARDS[15],
       }),
     )
     expect(result).toEqual({
@@ -131,6 +132,16 @@ describe('Sort Bet', () => {
     ).toHaveLength(4)
 
     expect(inMemoryTransactionsRepository.items).toHaveLength(4)
+
+    expect(inMemoryBetsRepository.items[0]).toEqual(
+      expect.objectContaining({
+        totalRewards:
+          BETS_REWARDS[15] +
+          BETS_REWARDS[14] +
+          BETS_REWARDS[13] +
+          BETS_REWARDS[12],
+      }),
+    )
 
     expect(result).toEqual({
       winningTickets: winningTickets.map((wt) => ({

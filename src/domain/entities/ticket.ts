@@ -1,11 +1,12 @@
 import { Entity } from '@/core/entities/entity'
 import { Optional } from '@/core/entities/types/optional'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { BuyTicketTransaction } from './buy-ticket-transaction'
 
 export interface TicketProps {
   userId: UniqueEntityID
   betId?: UniqueEntityID
-  transactionId: UniqueEntityID
+  transaction: BuyTicketTransaction
   numbers: number[]
   result: 'win' | 'lose' | null
   createdAt: Date
@@ -26,12 +27,12 @@ export class Ticket extends Entity<TicketProps> {
     this.touch()
   }
 
-  get transactionId() {
-    return this.props.transactionId
+  get transaction() {
+    return this.props.transaction
   }
 
-  set transactionId(transactionId: UniqueEntityID) {
-    this.props.transactionId = transactionId
+  set transaction(transaction: BuyTicketTransaction) {
+    this.props.transaction = transaction
     this.touch()
   }
 

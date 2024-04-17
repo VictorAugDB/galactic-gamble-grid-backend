@@ -28,6 +28,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
         : HttpStatus.INTERNAL_SERVER_ERROR
 
     const responseBody = {
+      statusCode: httpStatus,
       timestamp: new Date().toISOString(),
       path: httpAdapter.getRequestUrl(ctx.getRequest()),
       message: '',
@@ -40,18 +41,22 @@ export class AllExceptionsFilter implements ExceptionFilter {
     if (exception instanceof WrongCredentialsError) {
       httpStatus = HttpStatus.UNAUTHORIZED
       responseBody.message = exception.message
+      responseBody.statusCode = httpStatus
     } else if (exception instanceof NotAllowedError) {
       httpStatus = HttpStatus.METHOD_NOT_ALLOWED
       responseBody.message = exception.message
+      responseBody.statusCode = httpStatus
     } else if (exception instanceof UserAlreadyExistsError) {
       httpStatus = HttpStatus.CONFLICT
       responseBody.message = exception.message
+      responseBody.statusCode = httpStatus
     } else if (
       exception instanceof Error &&
       !(exception instanceof HttpException)
     ) {
       httpStatus = HttpStatus.BAD_REQUEST
       responseBody.message = exception.message
+      responseBody.statusCode = httpStatus
     }
 
     httpAdapter.reply(ctx.getResponse(), responseBody, httpStatus)

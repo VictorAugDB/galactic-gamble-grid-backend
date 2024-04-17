@@ -4,7 +4,7 @@ import { Ticket } from '@/domain/entities/ticket'
 import { Prisma, Ticket as PrismaTicket, Transaction } from '@prisma/client'
 
 type TransactionWithTicket = Transaction & {
-  ticket?: PrismaTicket
+  ticket?: PrismaTicket & { transaction: Transaction }
 }
 
 export class PrismaBuyTicketTransactionMapper {
@@ -18,7 +18,11 @@ export class PrismaBuyTicketTransactionMapper {
               numbers: raw.ticket.numbers,
               userId: new UniqueEntityID(raw.ticket.userId),
               createdAt: raw.ticket.createdAt,
-              transactionId: new UniqueEntityID(raw.ticket.transactionId),
+              transaction: BuyTicketTransaction.create({
+                userId: new UniqueEntityID(raw.ticket.transaction.userId),
+                value: raw.ticket.transaction.value,
+                createdAt: raw.ticket.createdAt,
+              }),
               result:
                 raw.ticket.result === 'LOSE'
                   ? 'lose'

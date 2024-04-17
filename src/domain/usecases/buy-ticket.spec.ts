@@ -61,7 +61,9 @@ describe('Buy Ticket', () => {
         userId: user.id,
         numbers,
         result: null,
-        transactionId: expect.any(UniqueEntityID),
+        transaction: expect.objectContaining({
+          id: expect.any(UniqueEntityID),
+        }),
       }),
     )
     expect(inMemoryTransactionsRepository.items[1]).toBeInstanceOf(

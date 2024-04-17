@@ -19,6 +19,19 @@ export class PrismaTicketsCostsRepository implements TicketsCostsRepository {
     return ticketsNumbersCosts[key]
   }
 
+  async findMany(): Promise<TicketNumbersCostMap> {
+    const result = await this.prisma.ticketCost.findMany()
+
+    const ticketsNumbersCosts = result[0]
+      .numbersCosts as TicketNumbersCostMap | null
+
+    if (!ticketsNumbersCosts) {
+      throw new NotFoundException('Tickets costs not found!')
+    }
+
+    return ticketsNumbersCosts
+  }
+
   create(_ticketNumbersCostMap: TicketNumbersCostMap): Promise<void> {
     throw new Error('Method not implemented.')
   }

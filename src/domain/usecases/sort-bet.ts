@@ -70,10 +70,16 @@ export class SortBetUseCase {
       return []
     })
 
+    const totalRewards = winningTickets.reduce(
+      (acc, curr) => acc + curr.value,
+      0,
+    )
+
     const bet = Bet.create({
       sortedNumbers,
       tickets,
       userId: new UniqueEntityID(userId),
+      totalRewards,
     })
 
     tickets.forEach((ticket) => (ticket.betId = bet.id))

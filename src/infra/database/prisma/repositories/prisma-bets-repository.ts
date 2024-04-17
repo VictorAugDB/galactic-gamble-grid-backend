@@ -11,7 +11,7 @@ import { PrismaBetMapper } from '../mappers/prisma-bet-mapper'
 export class PrismaBetsRepository implements BetsRepository {
   constructor(private prisma: PrismaService) {}
 
-  findById(id: string): Promise<Bet | null> {
+  findById(_id: string): Promise<Bet | null> {
     throw new Error('Method not implemented.')
   }
 
@@ -22,6 +22,13 @@ export class PrismaBetsRepository implements BetsRepository {
     const bets = await this.prisma.bet.findMany({
       where: {
         userId,
+      },
+      include: {
+        tickets: {
+          include: {
+            transaction: true,
+          },
+        },
       },
       skip: pagination ? pagination.page - 1 : 0,
       take: pagination ? pagination.size : PAGINATION.size,

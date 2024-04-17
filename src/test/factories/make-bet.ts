@@ -7,6 +7,7 @@ export function makeBet(override: Partial<BetProps> = {}, id?: UniqueEntityID) {
     {
       userId: override.userId ?? new UniqueEntityID(),
       tickets: override.tickets ?? [],
+      totalRewards: override.totalRewards ?? 0,
       sortedNumbers: sortBetNumbers(),
       ...override,
     },
